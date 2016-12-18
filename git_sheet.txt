@@ -1,0 +1,31 @@
+How to delete files from git history
+
+1. Replace 'filename' for the name of the file and 'commit' for the commit hash
+git filter-branch --index-filter \
+'git update-index --remove filename' commit..HEAD
+
+2. Make sure to execute the following pushes on ALL the project's branches
+git push --force --verbose --dry-run
+git push --force
+
+//http://stackoverflow.com/questions/5563564/completely-remove-files-from-git-repo-and-remote-on-github
+
+
+In case of:
+.HEAD
+Cannot create a new backup.
+A previous backup already exists in refs/original/
+Force overwriting the backup with -f
+
+Use:
+git update-ref -d refs/original/refs/heads/master
+
+//http://stackoverflow.com/questions/7654822/remove-refs-original-heads-master-from-git-repo-after-filter-branch-tree-filte
+
+
+In case a revert is needed:
+
+git fetch origin
+git reset --hard origin/master
+
+//http://stackoverflow.com/questions/1628088/reset-local-repository-branch-to-be-just-like-remote-repository-head
